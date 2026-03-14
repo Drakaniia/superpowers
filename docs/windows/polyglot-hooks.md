@@ -1,10 +1,10 @@
-# Cross-Platform Polyglot Hooks for Claude Code
+# Cross-Platform Polyglot Hooks for Qwen CLI
 
-Claude Code plugins need hooks that work on Windows, macOS, and Linux. This document explains the polyglot wrapper technique that makes this possible.
+Qwen CLI plugins need hooks that work on Windows, macOS, and Linux. This document explains the polyglot wrapper technique that makes this possible.
 
 ## The Problem
 
-Claude Code runs hook commands through the system's default shell:
+Qwen CLI runs hook commands through the system's default shell:
 - **Windows**: CMD.exe
 - **macOS/Linux**: bash or sh
 
@@ -69,7 +69,7 @@ hooks/
         "hooks": [
           {
             "type": "command",
-            "command": "\"${CLAUDE_PLUGIN_ROOT}/hooks/session-start.cmd\""
+            "command": "\"${QWEN_PLUGIN_ROOT}/hooks/session-start.cmd\""
           }
         ]
       }
@@ -78,7 +78,7 @@ hooks/
 }
 ```
 
-Note: The path must be quoted because `${CLAUDE_PLUGIN_ROOT}` may contain spaces on Windows (e.g., `C:\Program Files\...`).
+Note: The path must be quoted because `${QWEN_PLUGIN_ROOT}` may contain spaces on Windows (e.g., `C:\Program Files\...`).
 
 ## Requirements
 
@@ -193,20 +193,20 @@ CMD can't find bash. The wrapper uses the full path `C:\Program Files\Git\bin\ba
 Bash isn't running as a login shell. Ensure `-l` flag is used.
 
 ### Path has weird `\/` in it
-`${CLAUDE_PLUGIN_ROOT}` expanded to a Windows path ending with backslash, then `/hooks/...` was appended. Use `cygpath` to convert the entire path.
+`${QWEN_PLUGIN_ROOT}` expanded to a Windows path ending with backslash, then `/hooks/...` was appended. Use `cygpath` to convert the entire path.
 
 ### Script opens in text editor instead of running
 The hooks.json is pointing directly to the `.sh` file. Point to the `.cmd` wrapper instead.
 
 ### Works in terminal but not as hook
-Claude Code may run hooks differently. Test by simulating the hook environment:
+Qwen CLI may run hooks differently. Test by simulating the hook environment:
 ```powershell
-$env:CLAUDE_PLUGIN_ROOT = "C:\path\to\plugin"
+$env:QWEN_PLUGIN_ROOT = "C:\path\to\plugin"
 cmd /c "C:\path\to\plugin\hooks\session-start.cmd"
 ```
 
 ## Related Issues
 
-- [anthropics/claude-code#9758](https://github.com/anthropics/claude-code/issues/9758) - .sh scripts open in editor on Windows
-- [anthropics/claude-code#3417](https://github.com/anthropics/claude-code/issues/3417) - Hooks don't work on Windows
-- [anthropics/claude-code#6023](https://github.com/anthropics/claude-code/issues/6023) - CLAUDE_PROJECT_DIR not found
+- [QwenLM/qwen-code#9758](https://github.com/QwenLM/qwen-code/issues/9758) - .sh scripts open in editor on Windows
+- [QwenLM/qwen-code#3417](https://github.com/QwenLM/qwen-code/issues/3417) - Hooks don't work on Windows
+- [QwenLM/qwen-code#6023](https://github.com/QwenLM/qwen-code/issues/6023) - QWEN_PROJECT_DIR not found

@@ -11,7 +11,7 @@ PLUGIN_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 warning_message=""
 legacy_skills_dir="${HOME}/.config/superpowers/skills"
 if [ -d "$legacy_skills_dir" ]; then
-    warning_message="\n\n<important-reminder>IN YOUR FIRST REPLY AFTER SEEING THIS MESSAGE YOU MUST TELL THE USER:⚠️ **WARNING:** Superpowers now uses Claude Code's skills system. Custom skills in ~/.config/superpowers/skills will not be read. Move custom skills to ~/.claude/skills instead. To make this message go away, remove ~/.config/superpowers/skills</important-reminder>"
+    warning_message="\n\n<important-reminder>IN YOUR FIRST REPLY AFTER SEEING THIS MESSAGE YOU MUST TELL THE USER:⚠️ **WARNING:** Superpowers now uses Qwen CLI's skills system. Custom skills in ~/.config/superpowers/skills will not be read. Move custom skills to ~/.qwen/skills instead. To make this message go away, remove ~/.config/superpowers/skills</important-reminder>"
 fi
 
 # Read using-superpowers content
@@ -34,28 +34,11 @@ using_superpowers_escaped=$(escape_for_json "$using_superpowers_content")
 warning_escaped=$(escape_for_json "$warning_message")
 session_context="<EXTREMELY_IMPORTANT>\nYou have superpowers.\n\n**Below is the full content of your 'superpowers:using-superpowers' skill - your introduction to using skills. For all other skills, use the 'Skill' tool:**\n\n${using_superpowers_escaped}\n\n${warning_escaped}\n</EXTREMELY_IMPORTANT>"
 
-# Output context injection as JSON.
-# Cursor hooks expect additional_context.
-# Claude Code hooks expect hookSpecificOutput.additionalContext.
-# Claude Code reads BOTH fields without deduplication, so we must only
-# emit the field consumed by the current platform to avoid double injection.
-if [ -n "${CLAUDE_PLUGIN_ROOT:-}" ]; then
-  # Claude Code sets CLAUDE_PLUGIN_ROOT — emit only hookSpecificOutput
-  cat <<EOF
-{
-  "hookSpecificOutput": {
-    "hookEventName": "SessionStart",
-    "additionalContext": "${session_context}"
-  }
-}
-EOF
-else
-  # Other platforms (Cursor, etc.) — emit only additional_context
-  cat <<EOF
+# Output context injection as JSON for Qwen CLI
+cat <<EOF
 {
   "additional_context": "${session_context}"
 }
 EOF
-fi
 
 exit 0

@@ -4,13 +4,13 @@ This document describes how to test Superpowers skills, particularly the integra
 
 ## Overview
 
-Testing skills that involve subagents, workflows, and complex interactions requires running actual Claude Code sessions in headless mode and verifying their behavior through session transcripts.
+Testing skills that involve subagents, workflows, and complex interactions requires running actual Qwen CLI sessions in headless mode and verifying their behavior through session transcripts.
 
 ## Test Structure
 
 ```
 tests/
-├── claude-code/
+├── qwen-cli/
 │   ├── test-helpers.sh                    # Shared test utilities
 │   ├── test-subagent-driven-development-integration.sh
 │   ├── analyze-token-usage.py             # Token analysis tool
@@ -21,11 +21,11 @@ tests/
 
 ### Integration Tests
 
-Integration tests execute real Claude Code sessions with actual skills:
+Integration tests execute real Qwen CLI sessions with actual skills:
 
 ```bash
 # Run the subagent-driven-development integration test
-cd tests/claude-code
+cd tests/qwen-cli
 ./test-subagent-driven-development-integration.sh
 ```
 
@@ -34,8 +34,8 @@ cd tests/claude-code
 ### Requirements
 
 - Must run from the **superpowers plugin directory** (not from temp directories)
-- Claude Code must be installed and available as `claude` command
-- Local dev marketplace must be enabled: `"superpowers@superpowers-dev": true` in `~/.claude/settings.json`
+- Qwen CLI must be installed and available as `qwen` command
+- Local dev marketplace must be enabled: `"superpowers@superpowers-dev": true` in `~/.qwen/settings.json`
 
 ## Integration Test: subagent-driven-development
 
@@ -53,7 +53,7 @@ The integration test verifies the `subagent-driven-development` skill correctly:
 ### How It Works
 
 1. **Setup**: Creates a temporary Node.js project with a minimal implementation plan
-2. **Execution**: Runs Claude Code in headless mode with the skill
+2. **Execution**: Runs Qwen CLI in headless mode with the skill
 3. **Verification**: Parses the session transcript (`.jsonl` file) to verify:
    - Skill tool was invoked
    - Subagents were dispatched (Task tool)
@@ -138,19 +138,19 @@ STATUS: PASSED
 
 ### Usage
 
-Analyze token usage from any Claude Code session:
+Analyze token usage from any Qwen CLI session:
 
 ```bash
-python3 tests/claude-code/analyze-token-usage.py ~/.claude/projects/<project-dir>/<session-id>.jsonl
+python3 tests/qwen-cli/analyze-token-usage.py ~/.qwen/projects/<project-dir>/<session-id>.jsonl
 ```
 
 ### Finding Session Files
 
-Session transcripts are stored in `~/.claude/projects/` with the working directory path encoded:
+Session transcripts are stored in `~/.qwen/projects/` with the working directory path encoded:
 
 ```bash
 # Example for /Users/jesse/Documents/GitHub/superpowers/superpowers
-SESSION_DIR="$HOME/.claude/projects/-Users-jesse-Documents-GitHub-superpowers-superpowers"
+SESSION_DIR="$HOME/.qwen/projects/-Users-jesse-Documents-GitHub-superpowers-superpowers"
 
 # Find recent sessions
 ls -lt "$SESSION_DIR"/*.jsonl | head -5
