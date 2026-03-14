@@ -1,0 +1,7 @@
+{
+  "name": "superpowers",
+  "version": "5.0.7",
+  "description": "Core skills library: TDD, debugging, collaboration patterns, and proven techniques",
+  "skills": "skills",
+  "contextFileName": "QWEN.md"
+}
