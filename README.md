@@ -32,10 +32,10 @@ Install the Superpowers extension:
 
 ```bash
 # From GitHub URL
-qwen extensions install https://github.com/obra/superpowers
+qwen extensions install https://github.com/Drakaniia/superpowers.git
 
 # Or using shorthand
-qwen extensions install obra/superpowers
+qwen extensions install Drakaniia/superpowers
 ```
 
 **To update:**
