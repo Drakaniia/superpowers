@@ -44,6 +44,20 @@ qwen extensions install Drakaniia/superpowers
 qwen extensions update superpowers
 ```
 
+### iFlow
+
+Install the Superpowers extension for iFlow:
+
+```bash
+iflow extensions install https://github.com/Drakaniia/superpowers.git
+```
+
+**To update:**
+
+```bash
+iflow extensions update superpowers
+```
+
 ### Verify Installation
 
 Start a new Qwen CLI session and ask for something that should trigger a skill (for example, "help me plan this feature" or "let's debug this issue"). The agent should automatically invoke the relevant superpowers skill.
