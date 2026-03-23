@@ -1,5 +1,34 @@
 # Superpowers Release Notes
 
+## v5.0.3 (2026-03-23)
+
+### New Skill: Dashboard Design
+
+**Created `dashboard-design` skill using TDD methodology from `writing-skills`**
+
+- Systematic approach to designing dashboard UIs, admin panels, and data-dense interfaces
+- Layout structure: sidebar as spine, top bar actions, strict 2-column grid for main content
+- Typography and spacing system optimized for dashboards (small, tight scale)
+- Component patterns: lists, tables, cards, modals, popovers, toasts
+- Chart design best practices (basic line/bar charts with grid lines and labels)
+- Interactive element decision matrix (modal vs popover vs new page)
+- Complete design checklist for systematic dashboard design
+- Real-world examples from Linear, GitHub, Vercel, and Dub
+
+**TDD Process Applied:**
+- RED: Baseline test without skill identified 15+ gaps (profile placement, empty states, optimistic UI, etc.)
+- GREEN: Skill written addressing specific baseline failures
+- REFACTOR: Verified compliance with skill present
+
+### Improvements
+
+**Skill creation workflow documented**
+
+- TRANSCRIPT.MD added as source material for skill extraction
+- Demonstrates converting video transcripts and other content into reusable skills
+
+---
+
 ## v5.0.2 (2026-03-11)
 
 ### Zero-Dependency Brainstorm Server
