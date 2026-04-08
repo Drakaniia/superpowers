@@ -49,14 +49,16 @@ qwen extensions update superpowers
 Install the Superpowers extension for iFlow:
 
 ```bash
-iflow extensions install https://github.com/Drakaniia/superpowers.git
+iflow plugin install https://github.com/Drakaniia/superpowers.git
 ```
 
 **To update:**
 
 ```bash
-iflow extensions update superpowers
+iflow plugin install https://github.com/Drakaniia/superpowers.git
 ```
+
+*(Re-run the install command to update to the latest version)*
 
 ### Verify Installation
 
